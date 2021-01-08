@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Role;
+use Illuminate\Support\Facades\Gate;
 use App\User;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class UsersController extends Controller
 {
@@ -35,6 +37,11 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
+
+        if(Gate::denies('edit-users')){
+            return redirect(route('admin.users.index'));
+        }
+
         $roles = Role::all();
 
         return view('admin.users.edit')->with([
@@ -61,7 +68,13 @@ class UsersController extends Controller
         $user->name = $name;
         $user->email = $email;
 
-        $user->save();
+
+        if($user->save()){
+            $request->session()->flash('success', $user->name . " a bien été modifié");
+        }else{
+            $request->session()->flash('error', "Le user n'a pas été modifié");
+        };
+
 
         return redirect()->route('admin.users.index');
     }
@@ -72,10 +85,23 @@ class UsersController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(User $user, Request $request)
     {
+
+        if(Gate::denies('delete-users')){
+            return redirect(route('admin.users.index'));
+        }
+
         $user->roles()->detach();
         $user->delete();
+
+        if($user->delete()){
+            $request->session()->flash('error', "Le user n'a pas été supprimé");
+
+        }else{
+            $request->session()->flash('success', $user->name . " a bien été supprimé");
+        };
+
         return redirect()-> route('admin.users.index');
     }
 }
