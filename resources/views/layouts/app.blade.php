@@ -29,8 +29,8 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand" href="{{ url('/home') }}">
+                    Eshopping
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -70,6 +70,12 @@
                                 @can('manage-users')
                                 <a class="dropdown-item" href="{{ route('admin.users.index') }}">
                                     User management
+                                </a>
+                                <a class="dropdown-item" href="{{ route('admin.dashboard.index') }}">
+                                    Dashboard
+                                </a>
+                                <a class="dropdown-item" href="{{ route('admin.games.index') }}">
+                                    Games
                                 </a>
                                 @endcan
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
