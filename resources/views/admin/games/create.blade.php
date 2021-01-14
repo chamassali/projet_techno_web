@@ -39,7 +39,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="gameImage" class="form-label">Default file input example</label>
+            <label for="gameImage" class="form-label">Game image</label>
             <input class="form-control" type="file" name="gameImage" id="gameImage">
         </div>
 

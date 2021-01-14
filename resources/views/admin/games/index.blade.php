@@ -22,7 +22,7 @@
                                 <p class="card-text"><strong>Quantity :</strong> {{ $game->quantity }}</p>
                                 <p class="card-text"><strong>Activation code :</strong> {{ $game->activationCode }}</p>
                                 <div style="display: flex;">
-                                    <a href=""><button class="btn btn-primary">EDIT</button></a>
+                                    <a href="{{ route('admin.games.edit', $game->id) }}"><button class="btn btn-primary">EDIT</button></a>
                                     <form action="{{ route('admin.games.destroy', $game) }}" method="POST" style="margin-left: 10px;">
                                         @csrf
                                         @method("DELETE")
