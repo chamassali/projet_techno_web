@@ -6,6 +6,7 @@ use App\Game;
 use App\Http\Controllers\Controller;
 use Facade\Ignition\Exceptions\ViewException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class GamesController extends Controller
 {
@@ -42,11 +43,25 @@ class GamesController extends Controller
             $fileNameWithExt = $request->file('gameImage')->getClientOriginalName();
         };
 
+        if($request->hasFile('gameImage')){
+            $fileNameWithExt = $request->file('gameImage')->getClientOriginalName();   
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);     
+            $extension = $request->file('gameImage')->getClientOriginalExtension();         
+            $fileNameToStore = $fileName.'.'.$extension;
+            $path = $request->file('gameImage')->storeAs('public/gameImage', $fileNameToStore);
+
+        }
+        else{
+            $fileNameToStore = 'noimage.jpg';
+        }
+
         $name = $request->input('name');
         $description = $request->input('description');
         $quantity = $request->input('quantity');
         $price = $request->input('price');
         $activationCode = $request->input('activationCode');
+        $platform = $request->input('platform');
+
 
         $game = new Game();
         $game->name = $name;
@@ -54,7 +69,8 @@ class GamesController extends Controller
         $game->quantity = $quantity;
         $game->price = $price;
         $game->activationCode = $activationCode;
-        $game->gameImage = $fileNameWithExt;
+        $game->platform = $platform;
+        $game->gameImage = $fileNameToStore;
 
         $game->save();
 
@@ -102,8 +118,17 @@ class GamesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Game $game)
     {
-        //
+        $game->delete();
+
+        if($game->delete()){
+            $request->session()->flash('error', "Le jeu n'a pas été supprimé");
+
+        }else{
+            $request->session()->flash('success', $game->name . " a bien été supprimé");
+        };
+
+        return redirect()-> route('admin.games.index');
     }
 }

@@ -11,6 +11,19 @@
         </div>
 
         <div class="mb-3">
+            <label for="" class="form-label">Platform</label>
+            <select class="form-select" name="platform">
+                <option selected>Patform</option>
+                <option value="Pc">Pc</option>
+                <option value="Xbox">Xbox</option>
+                <option value="Ps4">Ps4</option>
+                <option value="Ps5">Ps5</option>
+            </select>
+        </div>
+
+
+
+        <div class="mb-3">
             <label for="" class="form-label">Description</label>
             <input type="text" name="description" class="form-control">
         </div>
@@ -32,7 +45,7 @@
 
         <div class="mb-3">
             <label for="" class="form-label">Activation code</label>
-            <input type="number" name="activationCode" class="form-control">
+            <input type="text" name="activationCode" class="form-control">
         </div>
 
 

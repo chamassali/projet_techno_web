@@ -21,6 +21,7 @@ class CreateGamesTable extends Migration
             $table->integer('price');
             $table->string('gameImage');
             $table->string('activationCode');
+            $table->string('platform');
             $table->timestamps();
         });
     }
