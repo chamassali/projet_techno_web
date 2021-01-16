@@ -18,7 +18,7 @@ class GamesController extends Controller
     public function index()
     {
         $games = Game::all();
-        return view('admin.games.index')->with('games', $games); //salam
+        return view('admin.games.index')->with('games', $games); //
     }
 
     /**
@@ -84,9 +84,9 @@ class GamesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Game $game)
+    public function show($id)
     {
-        return view ("admin.games.show")->with('game', $game);
+        //
     }
 
     /**
@@ -95,9 +95,9 @@ class GamesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Game $game)
+    public function edit($id)
     {
-        return view('admin.games.edit')->with('game', $game);
+        //
     }
 
     /**
@@ -107,48 +107,9 @@ class GamesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Game $game)
+    public function update(Request $request, $id)
     {
-        if ($request->hasFile('gameImage')) {
-            $fileNameWithExt = $request->file('gameImage')->getClientOriginalName();
-        };
-
-        if($request->hasFile('gameImage')){
-            $fileNameWithExt = $request->file('gameImage')->getClientOriginalName();   
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);     
-            $extension = $request->file('gameImage')->getClientOriginalExtension();         
-            $fileNameToStore = $fileName.'.'.$extension;
-            $path = $request->file('gameImage')->storeAs('public/gameImage', $fileNameToStore);
-
-        }
-        else{
-            $fileNameToStore = 'noimage.jpg';
-        }
-
-        $name = $request->input('name');
-        $description = $request->input('description');
-        $quantity = $request->input('quantity');
-        $price = $request->input('price');
-        $activationCode = $request->input('activationCode');
-        $platform = $request->input('platform');
-
-
-        $game = Game::find($game->id);
-        $game->name = $name;
-        $game->description = $description;
-        $game->quantity = $quantity;
-        $game->price = $price;
-        $game->activationCode = $activationCode;
-        $game->platform = $platform;
-        $game->gameImage = $fileNameToStore;
-
-        if($game->save()){
-            $request->session()->flash('success', $game->name . " a bien été modifié");
-        }else{
-            $request->session()->flash('error', "Le jeu n'a pas été modifié");
-        };
-
-        return redirect()->route('admin.games.index');
+        //
     }
 
     /**

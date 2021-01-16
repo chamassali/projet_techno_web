@@ -84,9 +84,9 @@ class GamesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Game $game)
+    public function show(Game )
     {
-        return view ("admin.games.show")->with('game', $game);
+        //
     }
 
     /**

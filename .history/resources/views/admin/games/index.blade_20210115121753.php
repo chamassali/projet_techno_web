@@ -1,6 +1,10 @@
 @extends('layouts.layout')
 
 @section('content')
+
+
+
+
 <div class="container">
     @can('manage-users')
     <a href="{{ route('admin.games.create') }}"><button type="button" class="btn btn-dark">Add a game</button></a>
@@ -17,7 +21,7 @@
                     <p class="card-text"><strong>Platform :</strong> {{ $game->platform }}</p>
                     <p class="card-text"><strong>Price :</strong> {{ $game->price }}.00€</p>
                     <button type="button" class="btn btn-success">Acheter</button>
-                    {{--<a href="{{route('admin.games.show', $game->id)}}"><button class="btn btn-warning">Show</button></a>--}}
+                    <a href="{{route('admin.games.show', $game->id)}}"><button class="btn btn-warning">Show</button></a>--}}
                     @can('manage-users')
                     <form action="{{ route('admin.games.destroy', $game) }}" method="POST" style="width: 75px; margin-left: 0px">
                         @csrf

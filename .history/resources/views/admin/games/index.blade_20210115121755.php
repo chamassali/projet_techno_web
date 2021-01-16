@@ -1,6 +1,10 @@
 @extends('layouts.layout')
 
 @section('content')
+
+
+
+
 <div class="container">
     @can('manage-users')
     <a href="{{ route('admin.games.create') }}"><button type="button" class="btn btn-dark">Add a game</button></a>
