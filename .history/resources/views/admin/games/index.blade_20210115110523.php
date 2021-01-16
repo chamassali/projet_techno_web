@@ -1,25 +1,27 @@
 @extends('layouts.layout')
 
 @section('content')
+
+
+
+
 <div class="container">
-    @can('manage-users')
-    <a href="{{ route('admin.games.create') }}"><button type="button" class="btn btn-dark">Add a game</button></a>
-    @endcan
+<h2>Games list</h2>
+
     <div class="row">
         @foreach($games as $game)
             <div class="col-lg-4 col-sm-6 portfolio-item">
                 <div class="card h-100">
-                <a href="{{route('admin.games.show', $game->id)}}"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
                 <div class="card-body">
                     <h4 class="card-title">
                         <h5 class="card-title" href="#"><strong>Name :</strong> {{ $game->name }}</h5>
                     </h4>
                     <p class="card-text"><strong>Platform :</strong> {{ $game->platform }}</p>
                     <p class="card-text"><strong>Price :</strong> {{ $game->price }}.00€</p>
-                    <button type="button" class="btn btn-success">Acheter</button>
-                    {{--<a href="{{route('admin.games.show', $game->id)}}"><button class="btn btn-warning">Show</button></a>--}}
+                    <a href="{{route('admin.games.show', $game->id)}}"><button class="btn btn-warning">Show</button></a>
                     @can('manage-users')
-                    <form action="{{ route('admin.games.destroy', $game) }}" method="POST" style="width: 75px; margin-left: 0px">
+                    <form action="{{ route('admin.games.destroy', $game) }}" method="POST" style="margin-left: 10px;">
                         @csrf
                         @method("DELETE")
                         <button type="submit" class="btn btn-danger">Delete</button>
@@ -53,7 +55,7 @@
       </ol>
       <div class="carousel-inner" role="listbox">
         <!-- Slide One - Set the background image for this slide in the line below -->
-        <div class="carousel-item active" style="background-image: url('http://placehold.it/1900x1080')">
+        <div class="carousel-item active"  style="background-image: url('http://placehold.it/1900x1080')">
           <div class="carousel-caption d-none d-md-block">
             <h3>First Slide</h3>
             <p>This is a description for the first slide.</p>

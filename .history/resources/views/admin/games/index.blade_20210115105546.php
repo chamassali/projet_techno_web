@@ -1,49 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
-<div class="container">
-    @can('manage-users')
-    <a href="{{ route('admin.games.create') }}"><button type="button" class="btn btn-dark">Add a game</button></a>
-    @endcan
-    <div class="row">
-        @foreach($games as $game)
-            <div class="col-lg-4 col-sm-6 portfolio-item">
-                <div class="card h-100">
-                <a href="{{route('admin.games.show', $game->id)}}"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <h5 class="card-title" href="#"><strong>Name :</strong> {{ $game->name }}</h5>
-                    </h4>
-                    <p class="card-text"><strong>Platform :</strong> {{ $game->platform }}</p>
-                    <p class="card-text"><strong>Price :</strong> {{ $game->price }}.00€</p>
-                    <button type="button" class="btn btn-success">Acheter</button>
-                    {{--<a href="{{route('admin.games.show', $game->id)}}"><button class="btn btn-warning">Show</button></a>--}}
-                    @can('manage-users')
-                    <form action="{{ route('admin.games.destroy', $game) }}" method="POST" style="width: 75px; margin-left: 0px">
-                        @csrf
-                        @method("DELETE")
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                    @endcan
-                </div>
-                </div>
-            </div>
-        @endforeach  
-      
-    </div>
-</div>
-<br>
-<br>
-<footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
-    </div>
-    <!-- /.container -->
-  </footer>
 
-@endsection
-
-@section('content2')
 <header>
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
@@ -84,9 +42,46 @@
       </a>
     </div>
   </header>
+
+<div class="container">
+<h2>Games list</h2>
+    
+    <div class="row">
+        @foreach($games as $game)
+            <div class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-100">
+                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <h5 class="card-title" href="#"><strong>Name :</strong> {{ $game->name }}</h5>
+                    </h4>
+                    <p class="card-text"><strong>Platform :</strong> {{ $game->platform }}</p>
+                    <p class="card-text"><strong>Price :</strong> {{ $game->price }}.00€</p>
+                    <a href="{{route('admin.games.show', $game->id)}}"><button class="btn btn-warning">Show</button></a>
+                    @can('manage-users')
+                    <form action="{{ route('admin.games.destroy', $game) }}" method="POST" style="margin-left: 10px;">
+                        @csrf
+                        @method("DELETE")
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    @endcan
+                </div>
+                </div>
+            </div>
+        @endforeach  
+      
+    </div>
+</div>
+<br>
+<br>
+<footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
 @endsection
-
-
 {{-- 
 <div class="row justify-content-center">
     <div class="col-md-8">
