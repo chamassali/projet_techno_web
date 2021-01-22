@@ -109,10 +109,6 @@ class GamesController extends Controller
      */
     public function update(Request $request, Game $game)
     {
-        if ($request->hasFile('gameImage')) {
-            $fileNameWithExt = $request->file('gameImage')->getClientOriginalName();
-        };
-
         if($request->hasFile('gameImage')){
             $fileNameWithExt = $request->file('gameImage')->getClientOriginalName();   
             $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);     

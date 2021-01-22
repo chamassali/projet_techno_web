@@ -28,5 +28,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     Route::resource('/users', 'UsersController', ['except' => ['show', 'create', 'store']]);
     Route::resource('/dashboard', 'DashboardController');
     Route::resource('/games', 'GamesController');
+});
 
+Route::namespace('Member')->prefix('member')->name('member.')->group(function(){
+    Route::resource('/profile', 'ProfileController');
 });
