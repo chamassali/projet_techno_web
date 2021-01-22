@@ -46,35 +46,27 @@
 
 @section('content')
 
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">{{ __('Dashboard') }}</div>
+<div class="container">
 
-            <div class="card-body">
-                <div class="container">
-                    <div class="row">
-                        @foreach($games as $game)
-                        <div class="col-lg-4 col-sm-6 portfolio-item">
-                            <div class="card h-100">
-                                <a href="{{route('admin.games.show', $game->id)}}"><img style="height: 200px;" class="card-img-top" src="{{ asset('storage/gameImage/' . $game->gameImage) }}" alt=""></a>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        <h5 class="card-title" href="#"><strong>Name :</strong> {{ $game->name }}</h5>
-                                    </h4>
-                                    <p class="card-text"><strong>Platform :</strong> {{ $game->platform }}</p>
-                                    <p class="card-text"><strong>Price :</strong> {{ $game->price }}.00€</p>
-                                    <button type="button" class="btn btn-success">Buy</button>
-                                    <a href="{{route('admin.games.show', $game->id)}}"><button class="btn btn-primary">Details</button></a>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
+    <div class="row">
+        @foreach($games as $game)
+            <div class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-100">
+                <a href="{{route('admin.games.show', $game->id)}}"><img style="height: 200px;" class="card-img-top" src="{{ asset('storage/gameImage/' . $game->gameImage) }}" alt=""></a>
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <h5 class="card-title" href="#"><strong>Name :</strong> {{ $game->name }}</h5>
+                    </h4>
+                    <p class="card-text"><strong>Platform :</strong> {{ $game->platform }}</p>
+                    <p class="card-text"><strong>Price :</strong> {{ $game->price }}.00€</p>
+                    <button type="button" class="btn btn-success">Acheter</button>
+                    {{--<a href="{{route('admin.games.show', $game->id)}}"><button class="btn btn-warning">Show</button></a>--}}
 
-                    </div>
+                </div>
                 </div>
             </div>
-        </div>
+        @endforeach  
+      
     </div>
 </div>
 

@@ -19,7 +19,7 @@
       <div class="col-lg-9">
 
         <div class="card mt-4">
-          <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
+          <img style="height: 400px;" class="card-img-top img-fluid" src="{{ asset('storage/gameImage/' . $game->gameImage) }}" alt="">
           <div class="card-body">
             <h3 class="card-title">{{ $game->name }}</h3>
             <h4>{{ $game->price }}.00 €</h4>
