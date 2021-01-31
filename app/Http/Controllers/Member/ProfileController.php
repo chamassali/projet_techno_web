@@ -99,4 +99,28 @@ class ProfileController extends Controller
     {
         //
     }
+
+    public function addCredit(User $user)
+    {
+        return view('member.profile.addCredit')->with(['user' => $user]);
+    }
+
+    public function updateCredit(Request $request, User $user)
+    {
+
+        $user = auth()->user();
+
+        $credits = $request->input('credits');
+
+        $user = User::find($user->id);
+        $user->credits += $credits;
+
+        if($user->save()){
+            $request->session()->flash('success', "Les crédits ont bien été ajouté");
+        }else{
+            $request->session()->flash('error', "Les crédits n'ont pas été ajouté");
+        };
+
+        return redirect()->route('member.profile.index');
+    }
 }

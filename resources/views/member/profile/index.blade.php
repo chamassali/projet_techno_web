@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.layout')
 
 @section('content')
 
@@ -10,10 +10,10 @@
 
                 <h5 class="card-title">{{ $user -> name }}</h5> <br>
                 <p class="card-text"><strong>Email :</strong> {{ $user -> email }}</p>
-                <p class="card-text"><strong>Credits :</strong></p>
+                <p class="card-text"><strong>Credits : {{ $user -> credits }}€</strong></p>
 
                 <a href="{{ route('member.profile.edit', $user->id) }}"><button class="btn btn-primary">EDIT PERSONAL INFO</button></a>
-
+                <a href="{{ route('member.profile.addCredit', $user->id) }}"><button class="btn btn-primary">ADD CREDIT</button></a>
 
             </div>
         </div>

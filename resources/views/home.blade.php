@@ -48,41 +48,36 @@
 
 <div class="container">
 
-  <form class="d-flex">
-    <input class="form-control" type="search" name='search' placeholder="Recherche par nom" aria-label="Search">
-    <button class="btn btn-outline-success" type="submit">Search</button>
-</form>
-
-  <br>
-
-    <div class="row">
-        @foreach($games as $game)
-            <div class="col-lg-4 col-sm-6 portfolio-item">
-                <div class="card h-100">
-                <a href="{{route('admin.games.show', $game->id)}}"><img style="height: 200px;" class="card-img-top" src="{{ asset('storage/gameImage/' . $game->gameImage) }}" alt=""></a>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <h5 class="card-title" href="#"><strong>Name :</strong> {{ $game->name }}</h5>
-                    </h4>
-                    <p class="card-text"><strong>Platform :</strong> {{ $game->platform }}</p>
-                    <p class="card-text"><strong>Price :</strong> {{ $game->price }}.00€</p>
-
-                    @if($game->quantity === 0)
-                    <button type="button" class="btn btn-success disabled">Acheter</button>
-                    @else()
-                    <button type="button" class="btn btn-success">Acheter</button>
-                    @endif
-
-                    
-
-                </div>
-                </div>
-            </div>
-        @endforeach  
-      
         {{ $games->links() }}
+  <div class="row">
+    @foreach($games as $game)
+    <div class="col-lg-4 col-sm-6 portfolio-item">
+      <div class="card h-100" style="width: 18rem;">
+        <a href="{{route('member.games.show', $game->id)}}"><img style="height: 150px;" class="card-img-top" src="{{ asset('storage/gameImage/' . $game->gameImage) }}" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <h5 class="card-title" href="#"><strong>Name :</strong> {{ $game->name }}</h5>
+          </h4>
+          <p class="card-text"><strong>Platform :</strong> {{ $game->platform }}</p>
+          <p class="card-text"><strong>Price :</strong> {{ $game->price }}.00€</p>
+          @if (Auth::check())
+          <form action="{{ route('member.cart.store') }}" method="POST">
+          @csrf
+            <input type="hidden" name="game_id" value="{{ $game->id }}">
+            <button type="submit" class="btn btn-dark">ADD TO CART</button>
+          </form>
 
+          @else
+          <a href="{{ route('login') }}">
+            <button type="button" class="btn btn-dark">ADD TO CART</button>
+          </a>
+          @endif
+        </div>
+      </div>
     </div>
+    @endforeach
+
+  </div>
 </div>
 
 @endsection

@@ -63,13 +63,16 @@
 
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
+                                <i class="fas fa-user"></i>
+
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+
+
+                                <a class="dropdown-item" href="{{ route('member.profile.index') }}" class="nav-link">
+                                    {{ Auth::user()->name }}
                                 </a>
+
                                 @can('manage-users')
                                 <a class="dropdown-item" href="{{ route('admin.users.index') }}">
                                     User management
@@ -81,15 +84,28 @@
                                     Games
                                 </a>
                                 @endcan
+
+                                <a style="color: red;" class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
                             </div>
                         </li>
 
+
                         <a href="{{ route('member.profile.index') }}" class="nav-link">
-                            <i class="fas fa-user"></i>
+                            {{ auth()->user()->credits }} <i class="fas fa-euro-sign"></i>
                         </a>
+
+                        <a href="{{ route('member.cart.index') }}" class="nav-link">
+                            <i class="fas fa-shopping-cart"></i> <span class="badge badge-pill badge-dark">{{ Cart::count() }}</span>
+                        </a>
+
+
                         @endguest
                     </ul>
                 </div>
@@ -105,14 +121,14 @@
             </div>
 
         </main>
-    </div>
 
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
-        </div>
-        <!-- /.container -->
-    </footer>
+        <footer class="py-3 bg-dark fixed-bottom">
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; Chamass Ali - Arnal Théo 2021</p>
+            </div>
+            <!-- /.container -->
+        </footer>
+    </div>
 </body>
 
 </html>
