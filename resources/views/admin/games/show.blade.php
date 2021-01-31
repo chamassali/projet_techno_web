@@ -27,7 +27,11 @@
             <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
             4.0 stars
             <br><br>
-            <button type="button" class="btn btn-success">Acheter</button>
+            @if($game->quantity === 0)
+                    <button type="button" class="btn btn-success disabled">Acheter</button>
+                    @else()
+                    <button type="button" class="btn btn-success">Acheter</button>
+                    @endif
 
           </div>
         </div>
@@ -38,14 +42,20 @@
             Product Reviews
           </div>
           <div class="card-body">
-              @foreach($game->reviews as $review)
+              
+                @foreach($game->reviews as $review)
+        
+                <h3>{{ $review->note }}</h3>
                 <p>{{ $review->description }}</p>
                 <small class="text-muted">Posted by {{ $review->auteur }} on {{ $review->created_at }} 
-
                     @if($review->auteur === auth()->user()->name)
-                    <a href=""> <img src="https://img.icons8.com/fluent-systems-filled/17/000000/border-color.png"/>    </a> 
                     
-                    <a href=""> <img src="https://img.icons8.com/fluent-systems-filled/17/000000/xbox-x.png"/>   </a>
+                      <a href="{{ route('member.review.edit',["id_game"=>$game->id, $review ]) }}"> <img src="https://img.icons8.com/fluent-systems-filled/17/000000/border-color.png"/>    </a> 
+                      <form action="{{ route('member.review.destroy', $review) }}" method="POST" style="margin-left: 10px;">
+                        @csrf
+                        @method("DELETE")
+                        <button class="btn btn-light"><img src="https://img.icons8.com/fluent-systems-filled/17/000000/xbox-x.png"/></button>  
+                      </form>
                 @endif
                 
                 </small>

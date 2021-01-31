@@ -16,10 +16,18 @@ class GamesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $games = Game::all();
-        return view('admin.games.index')->with('games', $games); //salam
+        $search = $request->input('search') ?? '';
+
+        if($search != ''){
+            $games = Game::where('name', 'like', '%' . $search . '%')
+            ->get();
+        } else {
+            $games = Game::all();
+        }
+        
+        return view('admin.games.index')->with('games', $games); 
     }
 
     /**

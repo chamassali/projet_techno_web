@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
+
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card">
@@ -14,7 +15,6 @@
                             <img style="height: 200px;" src="{{ asset('storage/gameImage/' . $game->gameImage) }}" class="card-img-top" alt="{{$game->gameImage}}">
                             <div class="card-body">
                                 <h5 class="card-title"><strong>Name :</strong> {{ $game->name }}</h5>
-                                <p class="card-text"><strong>Description :</strong> {{ $game->description }}</p> 
                                 <p class="card-text"><strong>Platform :</strong> {{ $game->platform }}</p>
                                 <p class="card-text"><strong>Price :</strong> {{ $game->price }}</p>
                                 <p class="card-text"><strong>Quantity :</strong> {{ $game->quantity }}</p>

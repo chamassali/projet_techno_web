@@ -73,9 +73,10 @@ class ReviewController extends Controller
      * @param  \App\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function edit(Review $review)
+    public function edit(Review $review, Game $game, Request $request)
     {
-        //
+        $id_game = $request->input('id_game');
+        return view('member.review.edit',['id_game' => $id_game, 'review' => $review]);
     }
 
     /**
@@ -87,7 +88,16 @@ class ReviewController extends Controller
      */
     public function update(Request $request, Review $review)
     {
-        //
+        $note = $request->input('note');
+        $description = $request->input('description');
+
+        $review = Review::find($review->id);
+        $review->note = $note;
+        $review->description = $description;
+
+        $review->save();
+        return redirect()->route('home');
+
     }
 
     /**
@@ -96,8 +106,9 @@ class ReviewController extends Controller
      * @param  \App\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Review $review)
+    public function destroy(Review $review, Game $game)
     {
-        //
+        $review->delete();
+        return redirect()->route('home');
     }
 }

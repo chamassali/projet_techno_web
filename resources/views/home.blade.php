@@ -11,24 +11,24 @@
       </ol>
       <div class="carousel-inner" role="listbox">
         <!-- Slide One - Set the background image for this slide in the line below -->
-        <div class="carousel-item active" style="background-image: url('http://placehold.it/1900x1080')">
+        <div class="carousel-item active" style="background-image: url('https://www.numerama.com/wp-content/uploads/2017/02/nintendo_switch.png')">
           <div class="carousel-caption d-none d-md-block">
-            <h3>First Slide</h3>
-            <p>This is a description for the first slide.</p>
+            {{-- <h3 style="color : black">First Slide</h3>
+            <p style="color : black">This is a description for the first slide.</p> --}}
           </div>
         </div>
         <!-- Slide Two - Set the background image for this slide in the line below -->
-        <div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
+        <div class="carousel-item" style="background-image: url('https://lemagjeuxhightech.com/wp-content/uploads/2020/09/PS5-tarifs-date-de-reservations-date-de-sortie-en-France.png')">
           <div class="carousel-caption d-none d-md-block">
-            <h3>Second Slide</h3>
-            <p>This is a description for the second slide.</p>
+            {{--<h3 style="color : black">Second Slide</h3>
+            <p style="color : black">This is a description for the second slide.</p>--}}
           </div>
         </div>
         <!-- Slide Three - Set the background image for this slide in the line below -->
-        <div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
+        <div class="carousel-item" style="background-image: url('https://i0.wp.com/respawwn.com/wp-content/uploads/2020/09/WIRE-XSS-XSX.jpg?ssl=1')">
           <div class="carousel-caption d-none d-md-block">
-            <h3>Third Slide</h3>
-            <p>This is a description for the third slide.</p>
+            {{--<h3 style="color : black">Third Slide</h3>
+            <p style="color : black">This is a description for the third slide.</p>--}}
           </div>
         </div>
       </div>
@@ -48,6 +48,13 @@
 
 <div class="container">
 
+  <form class="d-flex">
+    <input class="form-control" type="search" name='search' placeholder="Recherche par nom" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+
+  <br>
+
     <div class="row">
         @foreach($games as $game)
             <div class="col-lg-4 col-sm-6 portfolio-item">
@@ -59,14 +66,22 @@
                     </h4>
                     <p class="card-text"><strong>Platform :</strong> {{ $game->platform }}</p>
                     <p class="card-text"><strong>Price :</strong> {{ $game->price }}.00€</p>
+
+                    @if($game->quantity === 0)
+                    <button type="button" class="btn btn-success disabled">Acheter</button>
+                    @else()
                     <button type="button" class="btn btn-success">Acheter</button>
-                    {{--<a href="{{route('admin.games.show', $game->id)}}"><button class="btn btn-warning">Show</button></a>--}}
+                    @endif
+
+                    
 
                 </div>
                 </div>
             </div>
         @endforeach  
       
+        {{ $games->links() }}
+
     </div>
 </div>
 

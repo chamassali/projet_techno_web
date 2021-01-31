@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use App\Game;
 
 class HomeController extends Controller
@@ -22,9 +23,18 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $games = Game::all();
+
+        $search = $request->input('search') ?? '';
+
+        if($search != ''){
+            $games = Game::where('name', 'like', '%' . $search . '%')
+            ->get();
+        } else {
+            $games = Game::paginate(6);
+        }
+
         return view('home')->with('games', $games);
     }
 }
