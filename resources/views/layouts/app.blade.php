@@ -21,14 +21,13 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
-
-
+    <script src="https://kit.fontawesome.com/e7e038a132.js" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     Eshopping
@@ -59,6 +58,7 @@
                         <a href="/home" class="nav-link">
                             Home
                         </a>
+
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
@@ -84,6 +84,10 @@
                                 </form>
                             </div>
                         </li>
+
+                        <a href="{{ route('member.profile.index') }}" class="nav-link">
+                            <i class="fas fa-user"></i>
+                        </a>
                         @endguest
                     </ul>
                 </div>
@@ -95,9 +99,16 @@
                 @include('partials.alerts')
                 @yield('content')
             </div>
-
         </main>
     </div>
+
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+
 </body>
 
 </html>

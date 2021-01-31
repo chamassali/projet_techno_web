@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Game;
+use App\Review;
 use App\Http\Controllers\Controller;
 use Facade\Ignition\Exceptions\ViewException;
 use Illuminate\Http\Request;
@@ -15,9 +16,17 @@ class GamesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $games = Game::all();
+        $search = $request->input('search') ?? '';
+
+        if($search != ''){
+            $games = Game::where('name', 'like', '%' . $search . '%')
+            ->get();
+        } else {
+            $games = Game::all();
+        }
+        
         return view('admin.games.index')->with('games', $games); 
     }
 
@@ -48,7 +57,7 @@ class GamesController extends Controller
             $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);     
             $extension = $request->file('gameImage')->getClientOriginalExtension();         
             $fileNameToStore = $fileName.'.'.$extension;
-            $path = $request->file('gameImage')->storeAs('public/gameImage', $fileNameToStore);
+            $path = $request->file('gameImage')->storeAs('public/gameImage', $fileNameToStore);    //creer le dossier gameImage. 
 
         }
         else{
@@ -84,9 +93,9 @@ class GamesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Game $game, Review $review)
     {
-        //
+        return view ("admin.games.show", ['game'=> $game, "review" => $review ]);
     }
 
     /**
@@ -109,10 +118,6 @@ class GamesController extends Controller
      */
     public function update(Request $request, Game $game)
     {
-        if ($request->hasFile('gameImage')) {
-            $fileNameWithExt = $request->file('gameImage')->getClientOriginalName();
-        };
-
         if($request->hasFile('gameImage')){
             $fileNameWithExt = $request->file('gameImage')->getClientOriginalName();   
             $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);     

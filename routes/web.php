@@ -52,3 +52,5 @@ Route::get('send-mail', function () {
    
     dd("Email is Sent.");
 });
+
+    Route::resource('/review', 'ReviewController');
