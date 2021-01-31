@@ -23,8 +23,6 @@
     <link href="{{ asset('css/modern-business.css') }}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/e7e038a132.js" crossorigin="anonymous"></script>
 
-
-
 </head>
 
 <body>
@@ -122,13 +120,14 @@
 
         </main>
 
-        <footer class="py-3 bg-dark fixed-bottom">
-            <div class="container">
-                <p class="m-0 text-center text-white">Copyright &copy; Chamass Ali - Arnal Théo 2021</p>
-            </div>
-            <!-- /.container -->
-        </footer>
+
     </div>
+    <footer class="py-3 bg-dark mt-auto">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Chamass Ali - Arnal Théo 2021</p>
+        </div>
+        <!-- /.container -->
+    </footer>
 </body>
 
 </html>
