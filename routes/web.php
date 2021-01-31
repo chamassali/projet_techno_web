@@ -16,17 +16,39 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
     Route::resource('/users', 'UsersController', ['except' => ['show', 'create', 'store']]);
     Route::resource('/dashboard', 'DashboardController');
     Route::resource('/games', 'GamesController');
 
+Route::namespace('Member')->prefix('member')->name('member.')->group(function(){
+    Route::get('cart/generate-pdf','PdfController@generatePDF')->name('cart.pdf');
+    Route::get('cart/receipt', 'CartController@receipt')->name('cart.receipt');
+    Route::get('profile/addCredit', 'ProfileController@addCredit')->name('profile.addCredit');
+    Route::post('profile/updateCredit', 'ProfileController@updateCredit')->name('profile.updateCredit');
+    Route::resource('/profile', 'ProfileController');
+    Route::resource('/cart', 'CartController');
+    Route::resource('/games', 'UserGameController');
+
+});
+
+
+
+Route::get('send-mail', function () {
+   
+    $details = [
+        'title' => 'Mail from ItSolutionStuff.com',
+        'body' => 'This is for testing email using smtp'
+    ];
+   
+    \Mail::to('chamasahmadali@gmail.com')->send(new \App\Mail\MailSend($details));
+   
+    dd("Email is Sent.");
 });

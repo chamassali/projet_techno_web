@@ -9,29 +9,19 @@
 
                 <div class="card-body">
 
-                    <form action=" {{ route('admin.users.update', $user) }}" method="POST">
+                    <form action="{{ route('member.profile.update', auth()->user()) }}" method="POST">
                         @csrf
                         @method("PUT")
 
                         <div class="mb-3">
                             <label for="" class="form-label">Name</label>
-                            <input type="text" name="name" class="form-control" id="" value="{{ $user->name }}">
+                            <input type="text" name="name" class="form-control" id="" value="{{ auth()->user()->name }}">
                         </div>
 
                         <div class="mb-3">
                             <label for="" class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" value="{{ $user->email }}">
+                            <input type="email" name="email" class="form-control" value="{{ auth()->user()->email }}">
                         </div>
-
-                        <strong>Role</strong>
-                        @foreach($roles as $role)
-
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="roles[]" value="{{ $role->id }}"
-                            @if($user->roles->pluck('id')->contains($role->id)) checked @endif>
-                            <label>{{ $role->name }}</label>
-                        </div>
-                        @endforeach
 
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>
