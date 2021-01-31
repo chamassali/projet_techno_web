@@ -48,7 +48,7 @@
 
 <div class="container">
 
-        {{ $games->links() }}
+  
   <div class="row">
     @foreach($games as $game)
     <div class="col-lg-4 col-sm-6 portfolio-item">
@@ -64,19 +64,19 @@
           <form action="{{ route('member.cart.store') }}" method="POST">
           @csrf
             <input type="hidden" name="game_id" value="{{ $game->id }}">
-            <button type="submit" class="btn btn-dark">ADD TO CART</button>
+            <button type="submit" class="btn btn-success">Add to cart</button>
           </form>
 
           @else
           <a href="{{ route('login') }}">
-            <button type="button" class="btn btn-dark">ADD TO CART</button>
+            <button type="button" class="btn btn-success">Add to cart</button>
           </a>
           @endif
         </div>
       </div>
     </div>
     @endforeach
-
+    {{ $games->links() }}
   </div>
 </div>
 

@@ -18,7 +18,7 @@ class CreateReviewsTable extends Migration
 
             $table->text('description', 256);
             $table->integer('note')->default(0);
-            $table->integer('id_auteur');
+            $table->string('auteur');
             $table->integer('id_game');
 
             $table->timestamps();
