@@ -52,7 +52,6 @@
                     {{ $game->model->price }}.00€
                 </td>
 
-
             </tr>
             @endforeach
 
@@ -63,8 +62,6 @@
                 <td>
                    <strong>Total: {{ Cart::subtotal() }}€</strong> 
                 </td>
-                
-                
             </tr>
         </table>
     </div>

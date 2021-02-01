@@ -7,7 +7,10 @@
         <div class="card">
             <div class="card-header">Games list</div>
             <div class="card-body">
-                <a href="{{ route('admin.games.create') }}"><button type="button" class="btn btn-dark">Add a game</button></a>
+                <div style="display: flex;">
+                    <a href="{{ route('admin.games.create') }}"><button type="button" class="btn btn-dark">Add a game</button></a>
+                    <span style="margin-left: 40px;">{{ $games->links() }}</span>
+                </div>
                 <div class="row row-cols-1 row-cols-md-3 g-4">
                     @foreach($games as $game)
                     <div class="col" style="margin-top: 35px;">
@@ -38,6 +41,3 @@
 </div>
 
 @endsection
-
-
-

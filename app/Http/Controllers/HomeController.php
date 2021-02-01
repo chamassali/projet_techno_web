@@ -24,12 +24,11 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-
         $search = $request->input('search') ?? '';
 
         if($search != ''){
             $games = Game::where('name', 'like', '%' . $search . '%')
-            ->get();
+            ->paginate(6);
         } else {
             $games = Game::paginate(6);
         }

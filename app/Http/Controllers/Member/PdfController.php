@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 use PDF;
 use Mail;
 use App\Game;
+use App\AdminDashboard;
 use App\User;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class PDFController extends Controller
 {
@@ -17,7 +19,7 @@ class PDFController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function generatePDF(Game $game, User $user)
+    public function generatePDF(Game $game, User $user, AdminDashboard $AdminDashboard)
     {
         $user = auth()->user();
         $currentUser = User::find(auth()->user()->id);
@@ -29,7 +31,7 @@ class PDFController extends Controller
         if ($credits - $total >= 0) {
 
             $pdf = PDF::loadView('member/cart/receipt');
-            $pdf->save('receipt.pdf');
+            $pdf->download('receipt.pdf');
 
             $data["email"] = $user->email;
             $data["title"] = "Eshopping";
@@ -50,6 +52,13 @@ class PDFController extends Controller
             $newCredits = $credits - $total;
             $currentUser->credits = $newCredits;
             $currentUser->save();
+
+            
+            $AdminDashboard = new AdminDashboard();
+            $AdminDashboard->totalOfsells += $total;
+
+            $AdminDashboard->save();
+
 
             Cart::destroy();
             return redirect()

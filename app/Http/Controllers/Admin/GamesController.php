@@ -20,14 +20,14 @@ class GamesController extends Controller
     {
         $search = $request->input('search') ?? '';
 
-        if($search != ''){
+        if ($search != '') {
             $games = Game::where('name', 'like', '%' . $search . '%')
-            ->get();
+            ->paginate(6);
         } else {
-            $games = Game::all();
+            $games = Game::paginate(6);
         }
-        
-        return view('admin.games.index')->with('games', $games); 
+
+        return view('admin.games.index')->with('games', $games);
     }
 
     /**
@@ -52,15 +52,14 @@ class GamesController extends Controller
             $fileNameWithExt = $request->file('gameImage')->getClientOriginalName();
         };
 
-        if($request->hasFile('gameImage')){
-            $fileNameWithExt = $request->file('gameImage')->getClientOriginalName();   
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);     
-            $extension = $request->file('gameImage')->getClientOriginalExtension();         
-            $fileNameToStore = $fileName.'.'.$extension;
+        if ($request->hasFile('gameImage')) {
+            $fileNameWithExt = $request->file('gameImage')->getClientOriginalName();
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('gameImage')->getClientOriginalExtension();
+            $fileNameToStore = $fileName . '.' . $extension;
             $path = $request->file('gameImage')->storeAs('public/gameImage', $fileNameToStore);    //creer le dossier gameImage. 
 
-        }
-        else{
+        } else {
             $fileNameToStore = 'noimage.jpg';
         }
 
@@ -84,7 +83,6 @@ class GamesController extends Controller
         $game->save();
 
         return redirect()->route('admin.games.index');
-    
     }
 
     /**
@@ -95,7 +93,10 @@ class GamesController extends Controller
      */
     public function show(Game $game, Review $review)
     {
-        return view ("admin.games.show", ['game'=> $game, "review" => $review ]);
+
+        $reviewAverage = Review::avg('note');
+        return view("admin.games.show", ['game' => $game, "review" => $review])
+            ->with('reviewAverage', $reviewAverage);
     }
 
     /**
@@ -118,15 +119,13 @@ class GamesController extends Controller
      */
     public function update(Request $request, Game $game)
     {
-        if($request->hasFile('gameImage')){
-            $fileNameWithExt = $request->file('gameImage')->getClientOriginalName();   
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);     
-            $extension = $request->file('gameImage')->getClientOriginalExtension();         
-            $fileNameToStore = $fileName.'.'.$extension;
+        if ($request->hasFile('gameImage')) {
+            $fileNameWithExt = $request->file('gameImage')->getClientOriginalName();
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('gameImage')->getClientOriginalExtension();
+            $fileNameToStore = $fileName . '.' . $extension;
             $path = $request->file('gameImage')->storeAs('public/gameImage', $fileNameToStore);
-
-        }
-        else{
+        } else {
             $fileNameToStore = 'noimage.jpg';
         }
 
@@ -137,7 +136,6 @@ class GamesController extends Controller
         $activationCode = $request->input('activationCode');
         $platform = $request->input('platform');
 
-
         $game = Game::find($game->id);
         $game->name = $name;
         $game->description = $description;
@@ -147,9 +145,9 @@ class GamesController extends Controller
         $game->platform = $platform;
         $game->gameImage = $fileNameToStore;
 
-        if($game->save()){
+        if ($game->save()) {
             $request->session()->flash('success', $game->name . " a bien été modifié");
-        }else{
+        } else {
             $request->session()->flash('error', "Le jeu n'a pas été modifié");
         };
 
@@ -166,13 +164,12 @@ class GamesController extends Controller
     {
         $game->delete();
 
-        if($game->delete()){
+        if ($game->delete()) {
             $request->session()->flash('error', "Le jeu n'a pas été supprimé");
-
-        }else{
+        } else {
             $request->session()->flash('success', $game->name . " a bien été supprimé");
         };
 
-        return redirect()-> route('admin.games.index');
+        return redirect()->route('admin.games.index');
     }
 }

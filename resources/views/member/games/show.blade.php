@@ -39,7 +39,9 @@
 
       <div class="card card-outline-secondary my-4">
         <div class="card-header">
-          Product Reviews
+          Product Reviews 
+          <strong style="float: right;">Average score : {{ $reviewAverage }}/10</strong>
+
         </div>
         <div class="card-body">
           @foreach($game->reviews as $review)

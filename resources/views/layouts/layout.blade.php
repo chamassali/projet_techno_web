@@ -109,12 +109,12 @@
                 </div>
             </div>
         </nav>
-
+        @include('partials.alerts')
         @yield('content2')
         <main class="py-4">
 
             <div class="container-fluid">
-                @include('partials.alerts')
+               
                 @yield('content')
             </div>
 
