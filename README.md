@@ -1,4 +1,5 @@
 Pour le bon fonctionnement du projet, veuillez suivre les étapes suivantes :
+
 Lancer les commandes suivantes sur le terminal :
     composer install
     cp .env.example.env
