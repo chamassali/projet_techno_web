@@ -45,7 +45,6 @@
 @section('content')
 
 <div class="container">
-
   <form class="d-flex col-sm-4" style="margin: auto; margin-bottom: 20px;">
     <input class="form-control" type="search" name='search' placeholder="Recherche de jeu" aria-label="Search">
     <button class="btn btn-outline-success" type="submit">Search</button>
@@ -55,7 +54,7 @@
     @foreach($games as $game)
     <div class="col-lg-4 col-sm-6 portfolio-item">
       <div class="card h-100" style="width: 18rem;">
-        <a href="{{route('member.games.show', $game->id)}}"><img style="height: 150px;" class="card-img-top" src="{{ asset('storage/gameImage/' . $game->gameImage) }}" alt=""></a>
+        <a href="{{route('member.games.show', $game->id)}}"><img style="height: 350px;" class="card-img-top" src="{{ asset('storage/gameImage/' . $game->gameImage) }}" alt=""></a>
         <div class="card-body">
           <h4 class="card-title">
             <h5 class="card-title" href="#"><strong>Name :</strong> {{ $game->name }}</h5>

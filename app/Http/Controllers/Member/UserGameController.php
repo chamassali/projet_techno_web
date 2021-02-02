@@ -49,15 +49,14 @@ class UserGameController extends Controller
      */
     public function show(Game $game, Review $review)
     {
-        // $reviewAverage = Review::avg('note')
-        //     ->where('id_game', $game->id);
+
 
         $defaultReviewAverage = DB::table('reviews')
             ->where('id_game', $game->id)
             ->groupBy('id_game')
             ->average('note');
 
-            $reviewAverage = round($defaultReviewAverage);
+        $reviewAverage = round($defaultReviewAverage);
 
         return view('member.games.show')
             ->with(['game' => $game])

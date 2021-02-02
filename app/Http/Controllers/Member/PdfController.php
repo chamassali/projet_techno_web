@@ -31,7 +31,7 @@ class PDFController extends Controller
         if ($credits - $total >= 0) {
 
             $pdf = PDF::loadView('member/cart/receipt');
-            $pdf->download('receipt.pdf');
+            $pdf->save('receipt.pdf');
 
             $data["email"] = $user->email;
             $data["title"] = "Eshopping";
@@ -52,7 +52,6 @@ class PDFController extends Controller
             $newCredits = $credits - $total;
             $currentUser->credits = $newCredits;
             $currentUser->save();
-
             
             $AdminDashboard = new AdminDashboard();
             $AdminDashboard->totalOfsells += $total;

@@ -15,7 +15,7 @@
                     @foreach($games as $game)
                     <div class="col" style="margin-top: 35px;">
                         <div class="card" style="width: 18rem;">
-                            <img style="height: 200px;" src="{{ asset('storage/gameImage/' . $game->gameImage) }}" class="card-img-top" alt="{{$game->gameImage}}">
+                            <img style="height: 350px;" src="{{ asset('storage/gameImage/' . $game->gameImage) }}" class="card-img-top" alt="{{$game->gameImage}}">
                             <div class="card-body">
                                 <h5 class="card-title"><strong>Name :</strong> {{ $game->name }}</h5>
                                 <p class="card-text"><strong>Platform :</strong> {{ $game->platform }}</p>
