@@ -1,6 +1,13 @@
 Pour le bon fonctionnement du projet, veuillez suivre les étapes suivantes :
+Lancer les commandes suivantes sur le terminal :
+    composer install
+    cp .env.example.env
+    php artisan key:generate
+    php artisan migrate
+    php artisan db:seed
+    
+Installation de la librairie du panier: 
 
-<h1>Installation de la librairie du panier
 Sur le terminal du projet, lancer la commande suivante pour télécharger la libraire du panier : 
 
 <strong>composer require hardevine/shoppingcart</strong>
