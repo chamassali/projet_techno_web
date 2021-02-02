@@ -1,13 +1,4 @@
----
-title: ”Projet techno web”
-author:
-- Arnal Théo
-- Chamass Ali
-output:
-pdf_document: default
----
-
-<h1>Pour le bon fonctionnement du projet, veuillez suivre les étapes suivantes :<h1/>
+Pour le bon fonctionnement du projet, veuillez suivre les étapes suivantes :
 
 #Installation de la librairie du panier
 Sur le terminal du projet, lancer la commande suivante pour télécharger la libraire du panier : 
