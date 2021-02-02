@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Game;
+use App\AdminDashboard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; 
 
@@ -19,9 +20,15 @@ class DashboardController extends Controller
     {
         $userCount = User::count();
         $gameCount = Game::count();
+        $sellCount = AdminDashboard::count();
+        $totalSales = AdminDashboard::sum('totalOfsells');
+
         return view('admin.dashboard.index')
             ->with('userCount', $userCount)
-            ->with('gameCount', $gameCount);
+            ->with('gameCount', $gameCount)
+            ->with('sellCount', $sellCount)
+            ->with('totalSales', $totalSales)
+            ;
     }
 
     /**

@@ -73,6 +73,9 @@ body {
   color: #212529;
   text-align: left;
   background-color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -10902,4 +10905,30 @@ a.text-dark:focus {
     border-color: #dee2e6;
   }
 }
+
+.fa-stack[data-count]:after{
+  position:absolute;
+  right:0%;
+  top:0%;
+  content: attr(data-count);
+  font-size:40%;
+  padding:.6em;
+  border-radius:999px;
+  line-height:.75em;
+  color: white;
+  color: #DF0000;
+  text-align:center;
+  min-width:2em;
+  font-weight:bold;
+  background: white;
+  border-style:solid;
+}
+.fa-circle {
+  color:#DF0000;
+}
+
+.red-cart {
+	color: #DF0000; background:white;
+}
+
 

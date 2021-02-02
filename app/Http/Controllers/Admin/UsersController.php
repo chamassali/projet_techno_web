@@ -79,6 +79,7 @@ class UsersController extends Controller
         return redirect()->route('admin.users.index');
     }
 
+
     /**
      * Remove the specified resource from storage.
      *

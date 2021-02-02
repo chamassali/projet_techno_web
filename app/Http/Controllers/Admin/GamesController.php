@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Game;
+use App\Review;
 use App\Http\Controllers\Controller;
 use Facade\Ignition\Exceptions\ViewException;
 use Illuminate\Http\Request;
@@ -15,10 +16,18 @@ class GamesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $games = Game::all();
-        return view('admin.games.index')->with('games', $games); //salam
+        $search = $request->input('search') ?? '';
+
+        if ($search != '') {
+            $games = Game::where('name', 'like', '%' . $search . '%')
+            ->paginate(6);
+        } else {
+            $games = Game::paginate(6);
+        }
+
+        return view('admin.games.index')->with('games', $games);
     }
 
     /**
@@ -43,15 +52,14 @@ class GamesController extends Controller
             $fileNameWithExt = $request->file('gameImage')->getClientOriginalName();
         };
 
-        if($request->hasFile('gameImage')){
-            $fileNameWithExt = $request->file('gameImage')->getClientOriginalName();   
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);     
-            $extension = $request->file('gameImage')->getClientOriginalExtension();         
-            $fileNameToStore = $fileName.'.'.$extension;
-            $path = $request->file('gameImage')->storeAs('public/gameImage', $fileNameToStore);
+        if ($request->hasFile('gameImage')) {
+            $fileNameWithExt = $request->file('gameImage')->getClientOriginalName();
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('gameImage')->getClientOriginalExtension();
+            $fileNameToStore = $fileName . '.' . $extension;
+            $path = $request->file('gameImage')->storeAs('public/gameImage', $fileNameToStore);    //creer le dossier gameImage. 
 
-        }
-        else{
+        } else {
             $fileNameToStore = 'noimage.jpg';
         }
 
@@ -75,7 +83,6 @@ class GamesController extends Controller
         $game->save();
 
         return redirect()->route('admin.games.index');
-    
     }
 
     /**
@@ -84,9 +91,12 @@ class GamesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Game $game, Review $review)
     {
-        //
+
+        $reviewAverage = Review::avg('note');
+        return view("admin.games.show", ['game' => $game, "review" => $review])
+            ->with('reviewAverage', $reviewAverage);
     }
 
     /**
@@ -111,17 +121,11 @@ class GamesController extends Controller
     {
         if ($request->hasFile('gameImage')) {
             $fileNameWithExt = $request->file('gameImage')->getClientOriginalName();
-        };
-
-        if($request->hasFile('gameImage')){
-            $fileNameWithExt = $request->file('gameImage')->getClientOriginalName();   
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);     
-            $extension = $request->file('gameImage')->getClientOriginalExtension();         
-            $fileNameToStore = $fileName.'.'.$extension;
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('gameImage')->getClientOriginalExtension();
+            $fileNameToStore = $fileName . '.' . $extension;
             $path = $request->file('gameImage')->storeAs('public/gameImage', $fileNameToStore);
-
-        }
-        else{
+        } else {
             $fileNameToStore = 'noimage.jpg';
         }
 
@@ -132,7 +136,6 @@ class GamesController extends Controller
         $activationCode = $request->input('activationCode');
         $platform = $request->input('platform');
 
-
         $game = Game::find($game->id);
         $game->name = $name;
         $game->description = $description;
@@ -142,9 +145,9 @@ class GamesController extends Controller
         $game->platform = $platform;
         $game->gameImage = $fileNameToStore;
 
-        if($game->save()){
+        if ($game->save()) {
             $request->session()->flash('success', $game->name . " a bien été modifié");
-        }else{
+        } else {
             $request->session()->flash('error', "Le jeu n'a pas été modifié");
         };
 
@@ -161,13 +164,12 @@ class GamesController extends Controller
     {
         $game->delete();
 
-        if($game->delete()){
+        if ($game->delete()) {
             $request->session()->flash('error', "Le jeu n'a pas été supprimé");
-
-        }else{
+        } else {
             $request->session()->flash('success', $game->name . " a bien été supprimé");
         };
 
-        return redirect()-> route('admin.games.index');
+        return redirect()->route('admin.games.index');
     }
 }
